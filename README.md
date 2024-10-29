@@ -19,48 +19,48 @@ Rode o seguinte comando para instalar alguns pacotes necessários:
 
 ```bash
 sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm gettext libncurses5-dev tk-dev tcl-dev blt-dev libgdbm-dev git python3-dev aria2 libnss3-tools python3-venv liblzma-dev libpq-dev
-
-# Explicação dos pacotes principais:
-
-# - build-essential: Ferramentas de compilação como gcc e make.
-
-# - libssl-dev: Bibliotecas para suporte a SSL.
-
-# - zlib1g-dev: Biblioteca de compressão de dados.
-
-# - libbz2-dev: Biblioteca de compressão Bzip2.
-
-# - libreadline-dev: Biblioteca para histórico e edição de linha de comando.
-
-# - libsqlite3-dev: Biblioteca para o SQLite.
-
-# - wget/curl: Ferramentas para download de arquivos pela internet.
-
-# - llvm: Ferramenta para otimização e compilação de código.
-
-# - gettext: Suporte para internacionalização.
-
-# - libncurses5-dev: Biblioteca para interfaces de terminal.
-
-# - tk-dev/tcl-dev/blt-dev: Bibliotecas para GUIs baseadas em Tk.
-
-# - libgdbm-dev: Biblioteca GNU dbm.
-
-# - git: Controle de versão.
-
-# - python3-dev: Cabeçalhos de desenvolvimento para Python 3.
-
-# - aria2: Ferramenta para downloads multi-protocolos.
-
-# - libnss3-tools: Ferramentas de suporte para segurança de rede.
-
-# - python3-venv: Suporte para ambientes virtuais em Python 3.
-
-# - liblzma-dev: Biblioteca de compressão LZMA.
-
-# - libpq-dev: Bibliotecas de desenvolvimento para PostgreSQL.
 ```
 
+
+Explicação dos pacotes principais:
+
+- build-essential: Ferramentas de compilação como gcc e make.
+
+- libssl-dev: Bibliotecas para suporte a SSL.
+
+- zlib1g-dev: Biblioteca de compressão de dados.
+
+- libbz2-dev: Biblioteca de compressão Bzip2.
+
+- libreadline-dev: Biblioteca para histórico e edição de linha de comando.
+
+- libsqlite3-dev: Biblioteca para o SQLite.
+
+- wget/curl: Ferramentas para download de arquivos pela internet.
+
+- llvm: Ferramenta para otimização e compilação de código.
+
+- gettext: Suporte para internacionalização.
+
+- libncurses5-dev: Biblioteca para interfaces de terminal.
+
+- tk-dev/tcl-dev/blt-dev: Bibliotecas para GUIs baseadas em Tk.
+
+- libgdbm-dev: Biblioteca GNU dbm.
+
+- git: Controle de versão.
+
+- python3-dev: Cabeçalhos de desenvolvimento para Python 3.
+
+- aria2: Ferramenta para downloads multi-protocolos.
+
+- libnss3-tools: Ferramentas de suporte para segurança de rede.
+
+- python3-venv: Suporte para ambientes virtuais em Python 3.
+
+- liblzma-dev: Biblioteca de compressão LZMA.
+
+- libpq-dev: Bibliotecas de desenvolvimento para PostgreSQL.
 
 
 ### 2. Instalar o Pyenv
@@ -125,13 +125,13 @@ Caso precise configurar um novo usuário:
 ```bash
 git config --global user.name "Seu Nome"
 git config --global user.email "seu.email@exemplo.com"
-
-# Explicação:
-
-# - O uso de `--global` aplica essas configurações a todos os repositórios no sistema do usuário.
-
-# - Sem o `--global`, as configurações se aplicam apenas ao repositório atual.
 ```
+
+Explicação:
+
+- O uso de `--global` aplica essas configurações a todos os repositórios no sistema do usuário.
+
+- Sem o `--global`, as configurações se aplicam apenas ao repositório atual.
 
 Se houver algum erro e precisar deletar o arquivo de configuração:
 
@@ -153,7 +153,7 @@ Clone o repositório do seu GitHub:
 git clone <URL_DO_REPOSITORIO>
 ```
 
-Para verificar quais *branches* estão disponíveis:
+Para verificar quais *branches* estão disponíveis (tag `-a` mostra tanto locais como remotas):
 
 ```bash
 git branch -a
@@ -192,25 +192,29 @@ b. Atualize sua *branch* local (faça para cada *branch* que precisar):
 - Mude para a *branch* que deseja atualizar:
 
 ```bash
-git switch <branch>  # Ou use `git checkout <branch>` para compatibilidade com versões mais antigas do Git.
+git switch <BRANCH>
+```
+Ou `checkout` para compatibilidade com versões mais antigas do Git.
+```bash
+git checkout <BRANCH>
 ```
 
 - Traga as mudanças do *upstream*:
-
+A opção `--rebase` evita merges desnecessários, mantendo um histórico linear e mais limpo. Diferente do `merge`, que cria um commit de merge, o `rebase` aplica suas mudanças sobre a base mais recente, tornando o histórico mais fácil de seguir.
 ```bash
-git pull upstream <branch_remota> --rebase  # A opção --rebase evita merges desnecessários, mantendo um histórico linear e mais limpo. Diferente do `merge`, que cria um commit de merge, o `rebase` aplica suas mudanças sobre a base mais recente, tornando o histórico mais fácil de seguir.
+git pull upstream <BRANCH> --rebase 
 ```
 
 ### 5. Atualizar o Repositório Remoto Pessoal
 
 Atualize seu repositório remoto pessoal (*origin*):
-
+Use este comando para empurrar uma branch nova para o repositório remoto pela primeira vez.
 ```bash
-git push -u origin <branch>  # Use este comando para empurrar uma branch nova para o repositório remoto pela primeira vez.
+git push -u origin <BRANCH>
 ```
-ou
+Se a branch já foi empurrada anteriormente, apenas `push` é suficiente, tornando o comando mais eficiente:
 ```
-git push  # Se a branch já foi empurrada anteriormente, apenas `git push` é suficiente, tornando o comando mais eficiente.
+git push
 ```
 
 ### 6. Configurar Repositório Remoto Padrão
@@ -227,6 +231,47 @@ Defina o comportamento padrão para o comando `git push`, simplificando o envio 
 git config --global push.default simple
 ```
 
+## Comandos importantes
+
+- Descartar mudanças não enviadas para *área de staging* (ainda não usou `git add`):
+  ```bash
+  git restore <ARQUIVO>
+  ```
+  Pode usar também `git checkout -- <ARQUIVO>` para compatibilidade com versões mais antigas.
+  
+  Ou, se quiser descartar todas as mudanças não salvas de uma vez:
+  ```bash
+  git restore .
+  ```
+  Pode usar também `git checkout -- .` para compatibilidade com versões mais antigas.
+  
+- Descartar mudanças já enviadas para *área de staging*:
+  ```bash
+  git restore --staged <ARQUIVO>
+  ```
+  
+  Ou, se quiser remover todos os arquivos da área de staging de uma vez:
+  ```bash
+  git restore --staged .
+  ```
+  Alternativas: `git reset <ARQUIVO>`, ou `git reset .`. Pode retirar da *área de staging* e ao mesmo tempo descartar as mudançãs, voltando para o estágio do ultimo *commit* com `git reset --hard`.
+
+**Muito cuidado** ao usar comandos que voltam ao estado do último *commit*. Não é possivel retornar essas ações.
+
+- Adicionar multiplos arquivos, mas não todos, à *staging*:
+  - Adicionar arquivos individualmente:
+    ```bash
+    git add <ARQUIVO1> <ARQUIVO2>
+    ```
+  - Adicionar Arquivos em um Diretório Específico:
+    ```bash
+    git add <PATH/DO/DIRETORIO/>
+    ```
+  - Adicionar Arquivos com uma Extensão Específica:
+    ```bash
+    git add *.<EXTENSAO>
+    ```
+  
 ## Exemplo de Fluxo de Trabalho
 
 Este fluxo pressupõe que todas as configurações locais e de acesso ao repositório já foram realizadas. Este é apenas um exemplo de fluxo de trabalho e pode precisar ser adaptado de acordo com as regras e práticas específicas da organização.
@@ -239,22 +284,23 @@ Este fluxo pressupõe que todas as configurações locais e de acesso ao reposit
 
    - Certifique-se de que seu repositório local está atualizado com as últimas mudanças do repositório principal (*upstream*):
      ```bash
-     git pull upstream <branch_remota> --rebase
+     git pull upstream <BRANCH> --rebase
      ```
 
 3. **Sincronizar com o Origin**:
 
    - Sincronize seu repositório pessoal (*origin*):
      ```bash
-     git push origin main
+     git push origin <BRANCH>
      ```
 
 4. **Criar uma Branch para a Tarefa**:
 
-   - Crie uma *branch* para a tarefa relacionada à *issue* a ser trabalhada:
+   - Crie uma *branch* para a tarefa relacionada à *issue* a ser trabalhada e mude para a nova branch:
      ```bash
-     git checkout -b nome-da-branch
+     git checkout -b <NOME_DA_BRANCH>
      ```
+     Posso usar `git branch <NOME_DA_BRANDH>` para criar uma nova *branch*, mas vou ter que usar `git switch` ou `git checkout` para mudar para a nova *branch*.
 
 5. **Realizar Commits**:
 
@@ -286,6 +332,9 @@ Este fluxo pressupõe que todas as configurações locais e de acesso ao reposit
      git branch -d nome-da-branch
      ```
      Se a branch local não foi completamente mesclada e precisa ser forçada a ser removida, use `git branch -D nome-da-branch`, mas use com cautela, pois isso pode resultar em perda de trabalho não integrado.
+     ```bash
+     git branch -D <nome-da-branch>
+     ```
 
 ---
 
