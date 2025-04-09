@@ -2,6 +2,50 @@
 
 Comandos para configurar um ambiente de trabalho no Linux.
 
+## Instalar WSL2
+Use o PowerShell como administrador para executar os comandos abaixo.
+### Comando para Instalar WSL2
+
+```powershell
+wsl --install
+```
+### Em caso de problemas tente fazer a instalação manual do WSL2
+
+- #### Etapa 1 – Habilitar o Subsistema do Windows para Linux
+```powershell
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+```
+- #### Etapa 2 – Verificar os requisitos para executar o WSL 2
+Para atualizar para o WSL 2, você precisa estar executando o Windows 10.
+
+Em sistemas x64: versão 1903 ou posterior, com o Build 18362.1049 ou posterior.
+Em sistemas ARM64: versão 2004 ou posterior, com o build 19041 ou posterior.
+ou Windows 11.
+
+Para verificar a sua versão e o número de build, selecione a tecla do logotipo do Windows + R, digite winver e selecione OK.
+
+- #### Etapa 3 – Habilitar o recurso de Máquina Virtual
+```powershell
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+```
+
+- #### Etapa 4 – Baixar o pacote de atualização do kernel do Linux
+O pacote de atualização do kernel do Linux instala a versão mais recente do kernel do Linux WSL 2 para executar o WSL dentro da imagem do sistema operacional Windows. (Para executar o WSL da Microsoft Store, com atualizações mais frequentes, use wsl.exe --install ou wsl.exe --update).
+  1. Baixar o pacote mais recente:
+  [Pacote de atualização do kernel do Linux do WSL2 para computadores x64](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
+
+  2. Execute o pacote de atualização baixado na etapa anterior. (Clique duas vezes para executar. Você receberá uma solicitação para fornecer permissões elevadas; selecione 'sim' para aprovar essa instalação.)
+
+- #### Etapa 5 – Definir o WSL 2 como a sua versão padrão
+
+```powershell
+wsl --set-default-version 2
+```
+
+- #### Etapa 6 – Instalar a distribuição do Linux de sua escolha
+
+Abra a Microsoft Store e escolha sua distribuição do Linux favorita.
+
 ## Instalar Pyenv
 
 ### Atualizar as listas de pacotes
