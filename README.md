@@ -46,6 +46,60 @@ wsl --set-default-version 2
 
 Abra a Microsoft Store e escolha sua distribuição do Linux favorita.
 
+## Configurar Terminal do Linux (WSL2) para uso da VPN (no windows).
+
+**1. Dentro do WSL (Ubuntu), rode:**
+```bash
+sudo nano /etc/wsl.conf
+```
+E cole:
+```ini
+[network]
+generateResolvConf = false
+```
+Salve e feche (Ctrl + O, Enter, Ctrl + X).
+
+**2. Apague o resolv.conf atual:**
+```bash
+sudo rm /etc/resolv.conf
+```
+
+**3. Crie o novo resolv.conf:**
+```bash
+sudo nano /etc/resolv.conf
+```
+Com o conteúdo:
+Cole quandos endereços de IP tiverem sendo usados pela VPN. Nesse caso de exemplo tinhamos 2.
+```bash
+nameserver <12.205.101.21>
+nameserver <outro numero de ip usado pela VPN>
+```
+Salve novamente.
+
+- **3.1 Para Saber qual endereço de IP use o cmd.**
+```cmd
+ipconfig
+```
+- **3.2 Caso não esteja listado pode rodar no PowerShell:**
+```powershell
+Get-DnsClientServerAddress
+```
+
+**4. Finalize e reinicie o WSL no Windows:**
+No PowerShell ou CMD (fora do Ubuntu), rode:
+
+```powershell
+wsl --shutdown
+```
+Depois abra o Ubuntu de novo normalmente.
+
+**5. Teste:**
+Dentro do Ubuntu (WSL2), faça:
+```bash
+nslookup gitlab-dti.agu.gov.br
+```
+Se vier o IP, é sucesso!
+
 ## Instalar Pyenv
 
 ### Atualizar as listas de pacotes
